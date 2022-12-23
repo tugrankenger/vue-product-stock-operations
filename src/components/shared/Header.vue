@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #563F7A">
+  <nav class="navbar navbar-expand-lg navbar-dark px-3" style="background-color: #563F7A">
     <a class="navbar-brand" href="#">Product List</a>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
