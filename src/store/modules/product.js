@@ -22,9 +22,11 @@ const actions = {
   initApp({commit}){
     //vue axios operations
   },
-  saveProduct({commit},payload){
-    axios.post('https://product-operations-a1129-default-rtdb.firebaseio.com/products.json',payload).then((res)=>{
-      console.log(res)
+  saveProduct({commit, state},product){
+    axios.post('https://product-operations-a1129-default-rtdb.firebaseio.com/products.json',product).then((res)=>{
+      product.key = res.data.name
+      commit("updateProductList", product)
+      console.log(state.products)
     })
   },
   sellProduct({commit}, payload){
