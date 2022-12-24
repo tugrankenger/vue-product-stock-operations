@@ -22,11 +22,18 @@ const actions = {
   initApp({commit}){
     //vue axios operations
   },
-  saveProduct({commit, state},product){
+  saveProduct({dispatch, commit},product){
     axios.post('https://product-operations-a1129-default-rtdb.firebaseio.com/products.json',product).then((res)=>{
       product.key = res.data.name
       commit("updateProductList", product)
-      console.log(state.products)
+
+      /* update prices */
+      let tradeResult = {
+        purchase: product.price,
+        sale: 0,
+        count: product.count
+      }
+      dispatch('setTradeResult',tradeResult)
     })
   },
   sellProduct({commit}, payload){
