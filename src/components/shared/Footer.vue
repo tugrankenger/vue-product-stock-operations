@@ -5,21 +5,28 @@
     </span>
     <span class="navbar-text my-lg-0 me-3">
         <strong>Purchase Amount : </strong>
-        <span class="badge bg-danger">34,56</span>
+        <span class="badge bg-danger">{{ getTradeResult.purchase }}</span>
     </span>
     <span class="navbar-text my-lg-0 me-3">
         <strong>Sales Amount : </strong>
-        <span class="badge bg-success">34,56</span>
+        <span class="badge bg-success">{{ getTradeResult.sale }}</span>
     </span>
     <span class="navbar-text my-lg-0 me-3">
         <strong>Balance : </strong>
-        <span class="badge bg-primary">34,56</span>
+        <span class="badge bg-primary">{{ getTradeResult.balance }}</span>
     </span>
 </nav>
 </template>
 
 <script>
-
+import {mapGetters} from 'vuex'
+    export default{
+        computed:{
+            ...mapGetters([
+                'getTradeResult'
+            ])
+        }
+    }
 </script>
 
 <style>
