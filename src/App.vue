@@ -13,7 +13,7 @@ export default{
   components:{
     appHeader : Header,
     appFooter: Footer,
-  }
+  },
 }
 </script>
  

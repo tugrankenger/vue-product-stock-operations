@@ -7,23 +7,23 @@
                 <hr>
                 <div class="form-group">
                     <label>Product Name</label>
-                    <input type="text" class="form-control" placeholder="Enter product name...">
+                    <input v-model="product.title" type="text" class="form-control" placeholder="Enter product name...">
                 </div>
                 <div class="form-group">
                     <label>Total</label>
-                    <input type="text" class="form-control" placeholder="Enter product count">
+                    <input v-model="product.count" type="number" class="form-control" placeholder="Enter product count">
                 </div>
                 <div class="form-group">
                     <label>Price</label>
-                    <input type="text" class="form-control" placeholder="Enter product price">
+                    <input v-model="product.price" type="number" class="form-control" placeholder="Enter product price">
                 </div>
                 <div class="form-group">
-                    <label>Explanation</label>
-                    <textarea cols="30" rows="5" placeholder="Enter a description of the product"
+                    <label>Description</label>
+                    <textarea v-model="product.description" cols="30" rows="5" placeholder="Enter a description of the product"
                               class="form-control"></textarea>
                 </div>
                 <hr>
-                <button class="btn btn-primary">Save</button>
+                <button class="btn btn-primary" @click="saveProducts">Save</button>
             </div>
         </div>
     </div>
@@ -31,7 +31,23 @@
 </template>
 
 <script>
-
+    export default{
+        data(){
+            return{
+                product :{
+                    title: '',
+                    count: null,
+                    price: null,
+                    description :''
+                }
+            }
+        },
+        methods:{
+            saveProducts(){
+                this.$store.dispatch("saveProduct",this.product)
+            }
+        }
+    }
 </script>
 
 <style>

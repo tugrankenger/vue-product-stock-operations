@@ -1,3 +1,4 @@
+import axios from 'axios'
 const state = {
   products:[]
 }
@@ -22,7 +23,9 @@ const actions = {
     //vue axios operations
   },
   saveProduct({commit},payload){
-    //vue axios operations
+    axios.post('https://product-operations-a1129-default-rtdb.firebaseio.com/products.json',payload).then((res)=>{
+      console.log(res)
+    })
   },
   sellProduct({commit}, payload){
     //vue axios operations
