@@ -38,12 +38,14 @@
                     title: '',
                     count: null,
                     price: null,
-                    description :''
-                }
+                    description :'',
+                },
+                saveButtonClicked : false,
             }
         },
         methods:{
             saveProducts(){
+                this.saveButtonClicked = true
                 this.$store.dispatch("saveProduct",this.product)
             }
         },
@@ -55,6 +57,16 @@
                     return true
                 }
             }
+        },
+        beforeRouteLeave (to, from, next) {
+            if((this.product.title.length>0 || this.product.count>0 || this.product.price >0 || this.product.description.length>0) && !this.saveButtonClicked){
+                if(confirm('There are unsaved data, do you want to exit?')){
+                    next()
+                }else{
+                    next(false)
+                }
+            }
+            next()
         }
     }
 </script>

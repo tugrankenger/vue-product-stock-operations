@@ -1,4 +1,5 @@
 import axios from 'axios'
+import router from '../../router'
 const state = {
   products:[]
 }
@@ -34,6 +35,7 @@ const actions = {
         count: product.count
       }
       dispatch('setTradeResult',tradeResult)
+      router.push({name: 'ProductList'})
     })
   },
   sellProduct({commit}, payload){
