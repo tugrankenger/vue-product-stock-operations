@@ -7,30 +7,26 @@
                 <hr>
                 <div class="form-group">
                     <label>Product Name</label>
-                    <select class="form-control">
-                        <option value="1">Product 1</option>
-                        <option value="1">Product 2</option>
-                        <option value="1">Product 3</option>
-                        <option value="1">Product 4</option>
-                        <option value="1">Product 5</option>
+                    <select class="form-control" v-model="selectedProduct" @change="productSelected" >
+                        <option selected disabled>Please select a product</option>
+                        <option  v-for="product in getProducts" :value="product.key" :key="product.key" :disabled="product.count < 2">{{ product.title }}</option>
                     </select>
                 </div>
-                <div class="card mb-2 border border-danger">
+                <transition name="bounce" appear>
+                    <div class="card mb-2 border border-danger" v-if="selectedProduct !== null">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12 text-center">
                                 <div class="mb-3">
-                                    <span class="badge bg-info">Stock : 4</span>
-                                    <span class="badge bg-primary">Price : 100,5 $</span>
+                                    <span class="badge bg-info">Stock: {{ stock }}</span>&nbsp;
+                                    <span class="badge bg-primary">Price: {{ filters.formatMoney(price) }} </span>
                                 </div>
-                                <p class="border border-warning p-2 text-secondary">Lorem ipsum dolor sit amet, consectetur
-                                    adipisicing elit. Assumenda debitis deleniti eos impedit iste numquam quos sit.
-                                    Dignissimos, mollitia nemo officia reiciendis repellendus rerum velit. Eos libero magnam
-                                    quas tempore!</p>
+                                <p class="border border-warning p-2 text-secondary">{{ description }}</p>
                             </div>
                         </div>
                     </div>
                 </div>
+                </transition>
                 <div class="form-group">
                     <label>Total</label>
                     <input type="text" class="form-control" placeholder="Enter product count">
@@ -44,11 +40,55 @@
 </template>
 
 <script>
-
+import { mapGetters } from 'vuex';
+    export default{
+        data(){
+            return{
+                selectedProduct : null,
+                stock: '',
+                price: '',
+                description:''
+            }
+        },  
+        computed:{
+            ...mapGetters(['getProducts'])
+        },
+        methods:{
+            productSelected(){
+                let product = this.$store.getters.getProduct(this.selectedProduct)
+                this.stock = product[0].count
+                this.price = product[0].price
+                this.description = product[0].description
+                console.log(product[0])
+            }
+        }
+    }
 </script>
 
 <style scoped>
   .border-danger {
             border-style: dashed !important;
         }
+
+        .bounce-enter-active {
+  animation: bounce-in 0.5s;
+}
+.bounce-leave-active {
+  animation: bounce-in 0.5s reverse;
+  /* position: absolute; */
+}
+.bounce-move{
+  transition: transform 1s;
+}
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
 </style>

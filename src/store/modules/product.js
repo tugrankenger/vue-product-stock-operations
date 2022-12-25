@@ -8,8 +8,10 @@ const getters = {
   getProducts(state){
     return state.products
   },
-  getProduct(state){ // for single product
-
+  getProduct(state, product){ // for single product
+    return key => state.products.filter(element =>{
+      return element.key == key
+    })
   }
 }
 
