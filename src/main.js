@@ -12,6 +12,15 @@ const axiosInstance = axios.create({
 
 const app = createApp(App)
 app.config.globalProperties.$axios = axiosInstance
+app.config.globalProperties.filters ={
+  formatMoney(value){
+    return new Intl.NumberFormat('tr-TR',{
+      style:'currency', 
+      currency:'TRY',
+      minimumFractionDigits:2
+    }).format(value)
+  }
+}
 app.use(store)
 app.use(router)
 app.mount('#app')

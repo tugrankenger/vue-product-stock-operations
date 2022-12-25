@@ -5,15 +5,15 @@
     </span>
     <span class="navbar-text my-lg-0 me-3">
         <strong>Purchase Amount : </strong>
-        <span class="badge bg-danger">{{ getTradeResult.purchase }}</span>
+        <span class="badge bg-danger">{{ filters.formatMoney(getTradeResult.purchase) }}</span>
     </span>
     <span class="navbar-text my-lg-0 me-3">
         <strong>Sales Amount : </strong>
-        <span class="badge bg-success">{{ getTradeResult.sale }}</span>
+        <span class="badge bg-success">{{ filters.formatMoney(getTradeResult.sale) }}</span>
     </span>
     <span class="navbar-text my-lg-0 me-3">
         <strong>Balance : </strong>
-        <span class="badge bg-primary">{{ getTradeResult.balance }}</span>
+        <span class="badge bg-primary">{{ filters.formatMoney(getTradeResult.balance) }}</span>
     </span>
 </nav>
 </template>

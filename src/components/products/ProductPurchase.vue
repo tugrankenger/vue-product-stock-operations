@@ -23,7 +23,7 @@
                               class="form-control"></textarea>
                 </div>
                 <hr>
-                <button class="btn btn-primary" @click="saveProducts">Save</button>
+                <button class="btn btn-primary" :disabled="saveEnable"  @click="saveProducts">Save</button>
             </div>
         </div>
     </div>
@@ -45,6 +45,15 @@
         methods:{
             saveProducts(){
                 this.$store.dispatch("saveProduct",this.product)
+            }
+        },
+        computed:{
+            saveEnable(){
+                if(this.product.title.length>0 && this.product.count>0 && this.product.price >0 && this.product.description.length>0){
+                    return false
+                }else{
+                    return true
+                }
             }
         }
     }

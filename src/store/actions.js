@@ -7,13 +7,18 @@ export const setTradeResult = ({state, commit}, tradeResult)=>{
     sale : state.sale
   }
   axios.put('https://product-operations-a1129-default-rtdb.firebaseio.com/trade-result.json',tradeData).then((res)=>{
-    console.log(res)
-    console.log(state.purchase)
-    console.log(state.sale)
-    console.log(state.balance)
+
   })
 }
 
 export const getTradeResult = ({commit})=>{
   //connect firebase and get balance, sale, purchase and update state
+  axios.get('https://product-operations-a1129-default-rtdb.firebaseio.com/trade-result.json').then((res)=>{
+    console.log("Response : ",res)
+    let tradePrices = {
+      purchase: res.data.purchase,
+      sale: res.data.sale
+    }
+    commit('updateTradeResult',tradePrices)
+  })
 }
