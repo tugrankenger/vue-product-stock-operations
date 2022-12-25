@@ -22,6 +22,14 @@ const mutations={
 const actions = {
   initApp({commit}){
     //vue axios operations
+    axios.get('https://product-operations-a1129-default-rtdb.firebaseio.com/products.json').then((res)=>{
+      console.log("initApp: ",res)
+      let data = res.data
+      for(let key in data){
+        data[key].key = key
+      commit('updateProductList',data[key])
+      }
+    })
   },
   saveProduct({dispatch, commit},product){
     axios.post('https://product-operations-a1129-default-rtdb.firebaseio.com/products.json',product).then((res)=>{
