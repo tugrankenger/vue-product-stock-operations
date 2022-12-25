@@ -1,7 +1,9 @@
 <template>
   <div>
     <app-header></app-header>
-    <router-view></router-view>
+    <transition name="bounce" appear>
+      <router-view></router-view>
+    </transition>
     <app-footer></app-footer>
   </div>
 </template>
@@ -21,5 +23,25 @@ export default{
 </script>
  
 <style>
-
+  .bounce-enter-active {
+  animation: bounce-in 0.5s;
+}
+.bounce-leave-active {
+  animation: bounce-in 0.5s reverse;
+  /* position: absolute; */
+}
+.bounce-move{
+  transition: transform 1s;
+}
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
 </style>
