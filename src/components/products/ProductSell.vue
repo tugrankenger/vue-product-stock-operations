@@ -29,10 +29,10 @@
                 </transition>
                 <div class="form-group">
                     <label>Total</label>
-                    <input type="text" class="form-control" placeholder="Enter product count">
+                    <input v-model="product_count" type="text" class="form-control" placeholder="Enter product count">
                 </div>
                 <hr>
-                <button class="btn btn-primary">Save</button>
+                <button class="btn btn-primary" @click="save">Save</button>
             </div>
         </div>
     </div>
@@ -47,7 +47,8 @@ import { mapGetters } from 'vuex';
                 selectedProduct : null,
                 stock: '',
                 price: '',
-                description:''
+                description:'',
+                product_count: null
             }
         },  
         computed:{
@@ -60,6 +61,13 @@ import { mapGetters } from 'vuex';
                 this.price = product[0].price
                 this.description = product[0].description
                 console.log(product[0])
+            },
+            save(){
+                let product = {
+                    count: this.product_count,
+                    key: this.selectedProduct
+                }
+                this.$store.dispatch('sellProduct',product)
             }
         }
     }

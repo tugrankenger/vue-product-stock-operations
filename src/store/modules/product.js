@@ -48,8 +48,18 @@ const actions = {
       router.push({name: 'ProductList'})
     })
   },
-  sellProduct({commit}, payload){
-    //vue axios operations
+  sellProduct({state, commit}, payload){
+    let product = state.products.filter(element =>{
+      return element.key == payload.key
+    })
+    if(product){
+      let totalCount = product[0].count - payload.count
+      axios.patch('https://product-operations-a1129-default-rtdb.firebaseio.com/products/'+payload.key + ".json",{count: totalCount})
+      .then((res)=>{
+        console.log(res)
+        product[0].count = totalCount
+      })
+    }
   }
 }
 
