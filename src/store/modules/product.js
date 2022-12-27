@@ -48,7 +48,7 @@ const actions = {
       router.push({name: 'ProductList'})
     })
   },
-  sellProduct({state, commit}, payload){
+  sellProduct({state, commit, dispatch}, payload){
     let product = state.products.filter(element =>{
       return element.key == payload.key
     })
@@ -58,6 +58,13 @@ const actions = {
       .then((res)=>{
         console.log(res)
         product[0].count = totalCount
+        let tradeResult = {
+          purchase: 0,
+          sale: product[0].price,
+          count: payload.count
+        }
+        dispatch('setTradeResult',tradeResult)
+        router.push({name: 'ProductList'})
       })
     }
   }

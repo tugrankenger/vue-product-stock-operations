@@ -64,10 +64,10 @@ import { mapGetters } from 'vuex';
             },
             save(){
                 let product = {
-                    count: this.product_count,
-                    key: this.selectedProduct
+                    key: this.selectedProduct,
+                    count: this.product_count
                 }
-                this.$store.dispatch('sellProduct',product)
+                this.$store.dispatch('sellProduct', product)
             }
         }
     }
