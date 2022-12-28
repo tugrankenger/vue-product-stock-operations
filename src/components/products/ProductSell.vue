@@ -1,5 +1,11 @@
 <template>
   <div class="container">
+    <div class="loading" :style="isLoading">
+        <div class="lds-ripple">
+            <div></div>
+            <div></div>
+        </div>
+    </div>
     <div class="row">
         <div class="col-6 offset-3 pt-3 card mt-5 shadow">
             <div class="card-body">
@@ -32,7 +38,7 @@
                     <input v-model="product_count" type="text" class="form-control" placeholder="Enter product count">
                 </div>
                 <hr>
-                <button class="btn btn-primary" @click="save">Save</button>
+                <button class="btn btn-primary" @click="save" :disabled="saveEnable">Save</button>
             </div>
         </div>
     </div>
@@ -48,11 +54,30 @@ import { mapGetters } from 'vuex';
                 stock: '',
                 price: '',
                 description:'',
-                product_count: null
+                product_count: null,
+                saveButtonClicked: false
             }
         },  
         computed:{
-            ...mapGetters(['getProducts'])
+            ...mapGetters(['getProducts']),
+            saveEnable(){
+                if(this.selectedProduct !==null && this.product_count > 0){
+                    return false
+                }else{
+                    return true
+                }
+            },
+            isLoading(){
+                if(this.saveButtonClicked){
+                    return {
+                        display : 'block'
+                    }
+                }else{
+                    return{
+                        display : 'none'
+                    }
+                }
+            }
         },
         methods:{
             productSelected(){
@@ -63,12 +88,23 @@ import { mapGetters } from 'vuex';
                 console.log(product[0])
             },
             save(){
+                this.saveButtonClicked = true
                 let product = {
                     key: this.selectedProduct,
                     count: this.product_count
                 }
                 this.$store.dispatch('sellProduct', product)
             }
+        },
+        beforeRouteLeave (to, from, next) {
+            if((this.selectedProduct !==null || this.product_count > 0) && !this.saveButtonClicked ){
+                if(confirm('There are unsaved data, do you want to exit?')){
+                    next()
+                }else{
+                    next(false)
+                }
+            }
+            next()
         }
     }
 </script>
